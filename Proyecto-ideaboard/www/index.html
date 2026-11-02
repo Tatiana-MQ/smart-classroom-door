@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aula · IdeaBoard</title>
+<meta name="description" content="Control del estado y la puerta del aula desde el celular, con una IdeaBoard de CRCibernética.">
+<meta name="theme-color" content="#18212b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Aula">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icono-180.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="fondo" aria-hidden="true"></div>
+
+<header class="cabecera">
+  <div class="marca">
+    <span class="marca-icono" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 21h16"/>
+        <path d="M6.5 21V5a1.5 1.5 0 0 1 1.5-1.5h8A1.5 1.5 0 0 1 17.5 5v16"/>
+        <path d="M14 12h.01"/>
+      </svg>
+    </span>
+    <div class="marca-texto">
+      <p class="etiqueta">IdeaBoard</p>
+      <h1 id="aula">Aula</h1>
+    </div>
+  </div>
+  <p id="conexion" class="conexion" data-estado="conectando" aria-live="polite">
+    <span class="punto" aria-hidden="true"></span>
+    <span id="conexion-texto">Conectando…</span>
+  </p>
+</header>
+
+<main class="contenido">
+  <section id="tarjeta" class="tarjeta" data-estado="desconocido" aria-labelledby="estado">
+    <div class="tarjeta-cabeza">
+      <div>
+        <p class="etiqueta etiqueta-clara">Estado del aula</p>
+        <p id="estado" class="estado">Cargando…</p>
+      </div>
+      <div id="icono-estado" class="icono-estado" aria-hidden="true"></div>
+    </div>
+    <div id="tiempo" class="tiempo" hidden>
+      <span id="tiempo-valor" class="tiempo-valor">--:--</span>
+      <span class="tiempo-texto">restantes</span>
+    </div>
+    <p id="aviso" class="aviso" hidden></p>
+  </section>
+
+  <section class="rejilla" aria-label="Detalles del aula">
+    <div class="dato">
+      <span class="dato-etiqueta">Puerta</span>
+      <strong id="puerta" class="dato-valor" data-abierta="false">—</strong>
+    </div>
+    <div class="dato">
+      <span class="dato-etiqueta">Tiempo extra</span>
+      <strong id="extra" class="dato-valor">—</strong>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="pin-titulo">
+    <label id="pin-titulo" class="panel-titulo" for="pin">PIN del profesor</label>
+    <div class="pin-fila">
+      <input id="pin" class="pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="••••" autocomplete="off" enterkeyhint="done" aria-describedby="pin-ayuda">
+      <button id="ver-pin" class="ojo" type="button" aria-label="Mostrar PIN" aria-pressed="false">
+        <svg class="icono-ver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12Z"/>
+          <circle cx="12" cy="12" r="2.6"/>
+        </svg>
+        <svg class="icono-ocultar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3.5 3.5 17 17"/>
+          <path d="M10.6 6.7A10.9 10.9 0 0 1 12 6.6c6 0 9.5 5.4 9.5 5.4a17.6 17.6 0 0 1-3 3.6"/>
+          <path d="M6.6 7.2A17.4 17.4 0 0 0 2.5 12s3.5 5.5 9.5 5.5c1.3 0 2.5-.3 3.6-.7"/>
+        </svg>
+      </button>
+    </div>
+    <p id="pin-ayuda" class="ayuda">Se pide para usar, liberar o reportar el aula.</p>
+  </section>
+
+  <section id="acciones" class="acciones" aria-label="Acciones del aula" aria-busy="false">
+    <button class="boton principal" type="button" data-accion="usar" hidden>Usar aula</button>
+    <button class="boton principal" type="button" data-accion="aumentar" hidden>Aumentar tiempo</button>
+    <button class="boton peligro" type="button" data-accion="liberar" hidden>Liberar aula</button>
+    <button class="boton secundario" type="button" data-accion="reportar" hidden>Reportar mantenimiento</button>
+    <button class="boton principal" type="button" data-accion="resuelto" hidden>Problema resuelto</button>
+  </section>
+
+  <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+
+  <footer class="pie">
+    <p id="placa" class="pie-placa">Placa: —</p>
+    <button id="instalar" class="enlace" type="button" hidden>Instalar en el celular</button>
+  </footer>
+</main>
+
+<dialog id="dialogo" class="dialogo">
+  <form method="dialog">
+    <h2 id="dialogo-titulo">Confirmar</h2>
+    <p id="dialogo-texto"></p>
+    <div class="dialogo-acciones">
+      <button class="boton secundario" type="submit" value="cancelar">Cancelar</button>
+      <button id="dialogo-confirmar" class="boton peligro" type="submit" value="confirmar">Confirmar</button>
+    </div>
+  </form>
+</dialog>
+
+<noscript>
+  <p class="mensaje error">Esta app necesita JavaScript para hablar con la IdeaBoard.</p>
+</noscript>
+
+<script src="app.js" defer></script>
+</body>
+</html>

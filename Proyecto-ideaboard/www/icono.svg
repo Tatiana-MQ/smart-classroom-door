@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Aula IdeaBoard">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18212b"/>
+      <stop offset="1" stop-color="#0d131b"/>
+    </linearGradient>
+    <linearGradient id="puerta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f7a3f"/>
+      <stop offset="1" stop-color="#176231"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#fondo)"/>
+  <circle cx="420" cy="70" r="130" fill="#ffffff" opacity=".05"/>
+  <rect x="143" y="102" width="226" height="308" rx="30" fill="#eef2f7"/>
+  <rect x="161" y="120" width="190" height="272" rx="22" fill="url(#puerta)"/>
+  <circle cx="318" cy="266" r="14" fill="#eef2f7"/>
+</svg>
