@@ -161,6 +161,4 @@ Canales del 1 al 13 son 2,4 GHz. Un `rssi` de −70 o peor indica señal débil.
 - Placa: [IdeaBoard de CRCibernética](https://crcibernetica.com).
 - Librería: [`adafruit_httpserver`](https://github.com/adafruit/Adafruit_CircuitPython_HTTPServer).
 
-## Licencia
 
-Elige una licencia para tu repositorio (por ejemplo MIT) y agrega aquí el archivo `LICENSE`.
