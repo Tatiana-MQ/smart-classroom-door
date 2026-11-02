@@ -1,1 +1,0 @@
-# smart-classroom-door
